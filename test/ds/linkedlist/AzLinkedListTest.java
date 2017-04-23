@@ -401,6 +401,36 @@ public class AzLinkedListTest<E> {
 		Assert.assertEquals("1 2 3 4 5 9 ", list.printListFromNode(result));
 	}
 	
+	@Test
+	public void testAlternativeMerge()
+	{
+		//Arrange
+		AzLinkedList<Integer> list1 = createList(new int[]{1,3,5});
+		AzLinkedList<Integer> list2 = createList(new int[]{2,4,6,8,10});
+		//Act
+		List<Node<Integer>> results = list1.alternativeMerge(list1.head, list2.head);
+		//Assert
+		Assert.assertEquals("1 2 3 4 5 6 ", list1.printListFromNode(results.get(0)));
+		Assert.assertEquals("8 10 ", list1.printListFromNode(results.get(1)));
+		
+		
+	}
+	
+	@Test
+	public void testAlternativeMerge2()
+	{
+		//Arrange
+		AzLinkedList<Integer> list1 = createList(new int[]{1,3,5,7,9});
+		AzLinkedList<Integer> list2 = createList(new int[]{2,4,6});
+		//Act
+		List<Node<Integer>> results = list1.alternativeMerge(list1.head, list2.head);
+		//Assert
+		Assert.assertEquals("1 2 3 4 5 6 ", list1.printListFromNode(results.get(0)));
+		Assert.assertEquals("7 9 ", list1.printListFromNode(results.get(1)));
+		
+		
+	}
+	
 	private AzLinkedList<String> createList(String[] strings) {
 		AzLinkedList<String> list1 = new AzLinkedList<>();
 		for (int i = 0; i < strings.length; i++) {

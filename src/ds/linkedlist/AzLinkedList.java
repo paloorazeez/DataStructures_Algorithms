@@ -947,7 +947,7 @@ public class AzLinkedList<E extends Comparable<E> > {
 	}
 
 	private Node<E> mergeList(Node<E> a, Node<E> b) {
-		Node result = null;
+		Node<E> result = null;
 		if (a == null)
 			return b;
 		if (b == null)
@@ -960,5 +960,30 @@ public class AzLinkedList<E extends Comparable<E> > {
 			result.next = mergeList(a.next, b);
 		}
 		return result;
+	}
+
+	public List<Node<E>> alternativeMerge(Node<E> head1,
+			Node<E> head2) {
+		List<Node<E>> results = new ArrayList<Node<E>>();
+		Node<E> temp =head1;
+		while(head1 != null && head2!=null)
+		{
+			Node<E> a1 = head1.next;
+			Node<E> b1 = head2.next;
+			head1.next = head2;
+			head2.next = a1;
+			head1 = a1;
+			head2 = b1;
+		}
+		results.add(temp);
+		if(head1 != null)
+		{
+			results.add(head1);
+		}
+		if(head2 != null)
+		{
+			results.add(head2);
+		}
+		return results;
 	}
 }
