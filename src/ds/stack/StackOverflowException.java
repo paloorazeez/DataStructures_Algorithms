@@ -1,4 +1,4 @@
-package ds.stack.statics;
+package ds.stack;
 
 public class StackOverflowException extends Exception {
 

@@ -1,7 +1,11 @@
-package ds.stack.statics;
+package ds.stack;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import ds.stack.StackOverflowException;
+import ds.stack.StackUnderflowException;
+import ds.stack.StaticStack;
 
 public class StaticStackTest {
 
