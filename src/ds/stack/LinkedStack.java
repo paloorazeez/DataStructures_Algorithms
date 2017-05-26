@@ -169,5 +169,70 @@ public class LinkedStack<E> {
 		return stack.isEmpty();
 	}
 
+	public int evaluatePostfixExpression(String expression) throws StackUnderflowException {
+		if(StringUtils.isEmpty(expression))
+		{
+			return 0;
+		}
+		
+		LinkedStack<Integer> stack = new LinkedStack<Integer>();
+		for(int i=0;i<expression.length();i++)
+		{
+			char ch = expression.charAt(i);
+			if(!isOperator(ch))
+			{
+				stack.push(Integer.valueOf(ch+""));
+			}
+			else
+			{
+				int a = stack.pop();
+				int b = stack.pop();
+				int result = compute(b,a,ch);
+				stack.push(result);
+			}
+			
+		}
+		return stack.pop();
+	}
+
+	private int compute(int a, int b, char ch) {
+		switch(ch)
+		{
+			case '+':
+				return (a+b);
+			case '-':
+				return (a-b);
+			case '*':
+				return (a*b);
+			case '/':
+				return (a/b);
+			default:
+				return 0;
+		}
+	}
+
+	public boolean isPalindrome(String string) throws StackUnderflowException {
+		if(string.length()%2 == 0)
+		{
+			return false;
+		}
+		LinkedStack<Character> stack = new LinkedStack<Character>();
+		int mid = string.length()/2;
+		for(int i=0;i<mid;i++)
+		{
+			stack.push(string.charAt(i));
+		}
+		
+		for(int i=mid+1;i<string.length();i++)
+		{
+			if(string.charAt(i) != stack.pop())
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+
 
 }

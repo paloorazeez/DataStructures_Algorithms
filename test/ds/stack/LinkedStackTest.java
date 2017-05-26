@@ -115,5 +115,32 @@ public class LinkedStackTest {
 		LinkedStack<Void> balancer = new LinkedStack<Void>();
 		Assert.assertTrue(balancer.evaluate("A+B+C+D"));
 	}
+	
+	@Test
+	public void testEvaluatePostfixExpression() throws StackUnderflowException
+	{
+		LinkedStack<Integer> balancer = new LinkedStack<Integer>();
+		Assert.assertEquals(2,balancer.evaluatePostfixExpression("123*+5-"));
+	}
+	
+	@Test
+	public void testIsPlaindrome() throws StackUnderflowException
+	{
+		LinkedStack<Void> stack = new LinkedStack<Void>();
+		Assert.assertTrue(stack.isPalindrome("malayalam"));
+	}
+	
+	@Test
+	public void testIsPlaindromeEven() throws StackUnderflowException
+	{
+		LinkedStack<Void> stack = new LinkedStack<Void>();
+		Assert.assertFalse(stack.isPalindrome("malayalam1"));
+	}
+	@Test
+	public void testIsPlaindromeFalse() throws StackUnderflowException
+	{
+		LinkedStack<Void> stack = new LinkedStack<Void>();
+		Assert.assertFalse(stack.isPalindrome("malayalan"));
+	}
 
 }
