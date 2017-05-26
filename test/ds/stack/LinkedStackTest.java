@@ -69,5 +69,51 @@ public class LinkedStackTest {
 		stack.peak();
 		
 	}
+	
+	
+	@Test
+	public void testConvert() throws StackUnderflowException
+	{
+		LinkedStack<Void> converter = new LinkedStack();
+		String postfixExpression = converter.convert("A*B-(C+D)+E");
+		Assert.assertEquals("AB*CD+-E+",postfixExpression);
+	}
+	
+	@Test
+	public void testConvert2() throws StackUnderflowException
+	{
+		LinkedStack<Void> converter = new LinkedStack();
+		String postfixExpression = converter.convert("(A*(B+(C/D)))");
+		Assert.assertEquals("ABCD/+*",postfixExpression);
+	}
+	
+	
+	
+	@Test
+	public void testEvaluate() throws StackUnderflowException
+	{
+		LinkedStack<Void> balancer = new LinkedStack<Void>();
+		Assert.assertTrue(balancer.evaluate("(A+B)+(C+D)"));
+	}
+	
+	@Test
+	public void testEvaluateFalse() throws StackUnderflowException
+	{
+		LinkedStack<Void> balancer = new LinkedStack<Void>();
+		Assert.assertFalse(balancer.evaluate("((A+B)+(C+D)"));
+	}
+	
+	@Test
+	public void testEvaluateFalse2() throws StackUnderflowException
+	{
+		LinkedStack<Void> balancer = new LinkedStack<Void>();
+		Assert.assertFalse(balancer.evaluate("](A+B)+(C+D)"));
+	}
+	@Test
+	public void testEvaluateFalse3() throws StackUnderflowException
+	{
+		LinkedStack<Void> balancer = new LinkedStack<Void>();
+		Assert.assertTrue(balancer.evaluate("A+B+C+D"));
+	}
 
 }

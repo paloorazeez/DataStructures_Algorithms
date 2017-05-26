@@ -1,5 +1,7 @@
 package ds.stack;
 
+import org.apache.commons.lang3.StringUtils;
+
 import ds.linkedlist.Node;
 
 public class LinkedStack<E> {
@@ -52,5 +54,120 @@ public class LinkedStack<E> {
 		}
 		return top.data;
 	}
+
+	
+	public String convert(String expression) throws StackUnderflowException {
+
+		LinkedStack<Character> stack = new LinkedStack<Character>();
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < expression.length(); i++) {
+			char c = expression.charAt(i);
+			if(isAlpha(c))
+			{
+				result.append(c);
+			}
+			
+			if(c =='(')
+			{
+				stack.push(c);
+			}
+			if(c == ')')
+			{
+				char ch;
+				while( ( ch = stack.pop()) != '(')
+				{
+					result.append(ch);
+				}
+				
+				
+			}
+			
+			if(isOperator(c))
+			{
+				if (!stack.isEmpty()) {
+					if (precedence(c) > precedence(stack.peak())) {
+						stack.push(c);
+					} else if (precedence(c) <= precedence(stack.peak())) {
+						result.append(stack.pop());
+						stack.push(c);
+					}
+				}
+				else
+				{
+					stack.push(c);
+				}
+			}
+			
+		}
+			while(!stack.isEmpty())
+			{
+				result.append(stack.pop());
+			}
+		return result.toString();
+	}
+
+	private int precedence(char c) {
+		int precedence = 0;
+		switch (c) {
+		case '+':
+			precedence= 1;
+			break;
+		case '-':
+			precedence= 1;
+			break;
+		case '*':
+			precedence= 2;
+			break;
+		case '/':
+			precedence= 2;
+			break;
+		}
+		return precedence;
+	}
+
+	private boolean isOperator(char c) {
+		return (c == '+' || c == '-' || c =='*' || c=='/');
+	}
+
+	private boolean isAlpha(char c) {
+		return (c>='A' && c<='Z' || c>='0' && c<='9');
+	}
+	
+	
+
+	public boolean evaluate(String expression) throws StackUnderflowException {
+
+		LinkedStack<Character> stack = new LinkedStack<Character>();
+		if(StringUtils.isEmpty(expression))
+		{
+			return true;
+		}
+		
+		for (int i = 0; i < expression.length(); i++) {
+			
+			if(expression.charAt(i)=='(' || expression.charAt(i)=='[' || expression.charAt(i)=='{'  )
+			{
+				stack.push(expression.charAt(i));
+			}
+			else if(expression.charAt(i)==')' || expression.charAt(i)==']' || expression.charAt(i)=='}')
+			{
+				if(expression.charAt(i)==')' && (stack.isEmpty() || !stack.peak().equals('(')))
+				{
+					return false;
+				}
+				if(expression.charAt(i)==']' && (stack.isEmpty() || !stack.peak().equals('[')))
+				{
+					return false;
+				}
+				if(expression.charAt(i)=='}' && (stack.isEmpty() || !stack.peak().equals('{')))
+				{
+					return false;
+				}
+				stack.pop();
+			}
+		}
+		return stack.isEmpty();
+	}
+
 
 }
