@@ -142,5 +142,35 @@ public class LinkedStackTest {
 		LinkedStack<Void> stack = new LinkedStack<Void>();
 		Assert.assertFalse(stack.isPalindrome("malayalan"));
 	}
+	
+	@Test
+	public void testCalculateSpan()
+	{
+		LinkedStack<Void> stack = new LinkedStack<Void>();
+		int result[] = stack.calculateSpan(new int[]{6,3,4,5,2});
+		Assert.assertArrayEquals(new int[]{1,1,2,3,1}, result);
+	}
+	
+	@Test
+	public void testCalculateSpanUsingStack() throws StackUnderflowException
+	{
+		LinkedStack<Void> stack = new LinkedStack<Void>();
+		int result[] = stack.calculateSpanUsingStack(new int[]{6,3,4,5,2});
+		Assert.assertArrayEquals(new int[]{1,1,2,3,1}, result);
+	}
+	
+	@Test
+	public void testFindLargestRectangle() throws StackUnderflowException
+	{
+		LinkedStack<Void> stack = new LinkedStack<Void>();
+		Assert.assertEquals(12,stack.findLargestRectangle(new int[]{6,2,5,4,5,1,6}));
+	}
+	
+	@Test
+	public void testFindLargestRectangleTwo() throws StackUnderflowException
+	{
+		LinkedStack<Void> stack = new LinkedStack<Void>();
+		Assert.assertEquals(10,stack.findLargestRectangle(new int[]{3,2,5,6,1,4,4}));
+	}
 
 }
