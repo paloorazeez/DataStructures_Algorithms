@@ -172,5 +172,20 @@ public class LinkedStackTest {
 		LinkedStack<Void> stack = new LinkedStack<Void>();
 		Assert.assertEquals(10,stack.findLargestRectangle(new int[]{3,2,5,6,1,4,4}));
 	}
+	
+	@Test
+	public void testSort() throws StackUnderflowException
+	{
+		LinkedStack<Integer> stack = new LinkedStack<Integer>();
+		stack.push(10);
+		stack.push(1);
+		stack.push(11);
+		stack.push(4);
+		stack.push(6);
+		stack.push(2);
+		stack.push(5);
+		stack = stack.sort();
+		Assert.assertEquals("1 2 4 5 6 10 11 ", stack.print());
+	}
 
 }

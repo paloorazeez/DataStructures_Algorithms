@@ -264,4 +264,21 @@ public class LinkedStack<E> {
 		return maxArea;
 	}
 
+	public LinkedStack<Integer> sort() throws StackUnderflowException {
+		LinkedStack<Integer> tmpStack = new LinkedStack<Integer>();
+		while(!this.isEmpty())
+		{
+			int temp = (Integer) pop();
+			while(!tmpStack.isEmpty() && tmpStack.peak() < temp)
+			{
+				this.push((E) tmpStack.pop());
+			}
+			
+			tmpStack.push(temp);
+		}
+		return tmpStack;
+
+		
+	}
+
 }
