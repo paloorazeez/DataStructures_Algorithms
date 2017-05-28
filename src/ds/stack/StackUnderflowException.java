@@ -6,6 +6,9 @@ public class StackUnderflowException extends Exception {
 		super(msg);
 	}
 
+	public StackUnderflowException() {
+			super("Stack is empty");
+	}
 	/**
 	 * 
 	 */
