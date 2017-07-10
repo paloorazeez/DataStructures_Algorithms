@@ -1,6 +1,8 @@
 package ds.queue;
 
 import ds.linkedlist.Node;
+import ds.stack.LinkedStack;
+import ds.stack.StackUnderflowException;
 
 public class LinkedQueue<E> {
 
@@ -19,7 +21,7 @@ public class LinkedQueue<E> {
 		rear = newNode;
 		length++;
 	}
-	private boolean isEmpty() {
+	public boolean isEmpty() {
 		return length==0;
 	}
 	public String print() {
@@ -41,5 +43,55 @@ public class LinkedQueue<E> {
 		front = front.next;
 		length--;
 		return frontNode.data;
+	}
+	public LinkedQueue reverse() throws QueueUnderflowException, StackUnderflowException {
+		LinkedStack stack = new LinkedStack();
+		while(!isEmpty())
+		{
+			stack.push(this.dequeue());
+		}
+		
+		while(!stack.isEmpty())
+		{
+			this.enqueue((E) stack.pop());
+		}
+		return this;
+	}
+	public int size() {
+		// TODO Auto-generated method stub
+		return length;
+	}
+	public boolean pairwiseOrder(LinkedStack<Integer> stack) throws StackUnderflowException, QueueUnderflowException {
+		boolean pairwiseOrdered = true;
+		LinkedQueue<Integer> queue = new LinkedQueue<Integer>();
+		while(!stack.isEmpty())
+		{
+			queue.enqueue(stack.pop());
+		}
+		while(!queue.isEmpty())
+		{
+			stack.push(queue.dequeue());
+		}
+		
+		while(!stack.isEmpty())
+		{
+			int n = stack.pop();
+			queue.enqueue(n);
+			if(!stack.isEmpty())
+			{
+				int m = stack.pop();
+				queue.enqueue(m);
+				if((Math.abs((n-m)) != 1))
+						{
+					pairwiseOrdered = false;
+						}
+			}
+		}
+		
+		while(!queue.isEmpty())
+		{
+			stack.push(queue.dequeue());
+		}
+		return pairwiseOrdered;
 	}
 }
