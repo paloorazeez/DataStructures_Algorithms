@@ -94,4 +94,29 @@ public class LinkedQueue<E> {
 		}
 		return pairwiseOrdered;
 	}
+	public void interleavingSwap() throws QueueUnderflowException, StackUnderflowException {
+		LinkedStack<E> stack = new LinkedStack<>();
+		int n = this.size();
+		if(n % 2 != 0)
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		for(int i=0; i<n/2; i++)
+		{
+			stack.push(this.dequeue());
+		}
+		
+		while(stack.isEmpty())
+		{
+			this.enqueue(stack.pop());
+		}
+		
+		for(int i=0;i<n/2;i++)
+		{
+			this.enqueue(this.dequeue());
+		}
+		
+		
+	}
 }

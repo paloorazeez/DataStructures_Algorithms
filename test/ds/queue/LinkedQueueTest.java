@@ -68,5 +68,24 @@ public class LinkedQueueTest {
 		Assert.assertTrue(queue.pairwiseOrder(stack));
 		Assert.assertEquals("10 0 -1 7 6 4 3 1 2 ",stack.print());
 	}
+	
+	
+	@Test
+	public void testInterleavingSwap() throws QueueUnderflowException, StackUnderflowException
+	{
+		LinkedQueue<Integer> queue = new LinkedQueue<Integer>();
+		queue.enqueue(1);
+		queue.enqueue(2);
+		queue.enqueue(3);
+		queue.enqueue(4);
+		queue.enqueue(5);
+		queue.enqueue(6);
+		queue.enqueue(7);
+		queue.enqueue(8);
+		queue.enqueue(9);
+		queue.enqueue(10);
+		queue.interleavingSwap();
+		Assert.assertEquals("1 6 2 7 3 8 4 9 5 10 ", queue.print());
+	}
 
 }
