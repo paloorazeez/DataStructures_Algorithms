@@ -48,6 +48,11 @@ public class BinaryTree<E> {
 		sb.append(root.data).append(" ");
 		return sb.toString();
 	}
+
+	public String preOrderTraversalIterative(BTNode<Integer> root2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 
