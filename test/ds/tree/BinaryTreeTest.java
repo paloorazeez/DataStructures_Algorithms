@@ -166,7 +166,7 @@ public class BinaryTreeTest {
 	
 	
 	@Test
-	public void testMaxValueRecursive()
+	public void testMaxValueIterative()
 	{
 		BinaryTree<Integer> tree = new BinaryTree<Integer>();
 		tree.root = new BTNode<Integer>(20);
@@ -177,6 +177,68 @@ public class BinaryTreeTest {
 		tree.root.left.right = new BTNode<Integer>(5);
 		tree.root.right.left = new BTNode<Integer>(6);
 		tree.root.right.right= new BTNode<Integer>(7);
-		Assert.assertEquals(new Integer(20), tree.maxValueRecursive(tree.root));
+		Assert.assertEquals(new Integer(20), tree.maxValueIterative(tree.root));
+	}
+	
+	
+	@Test
+	public void testFindInBTRecursive()
+	{
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.root = new BTNode<Integer>(20);
+		tree.root.left = new BTNode<Integer>(2);
+		tree.root.right = new BTNode<Integer>(3);
+		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.left.right = new BTNode<Integer>(10);
+		tree.root.left.right = new BTNode<Integer>(5);
+		tree.root.right.left = new BTNode<Integer>(6);
+		tree.root.right.right= new BTNode<Integer>(7);
+		Assert.assertTrue(tree.findInBTRecursive(tree.root, 7));
+	}
+	
+	
+	@Test
+	public void testFindInBTIterative()
+	{
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.root = new BTNode<Integer>(20);
+		tree.root.left = new BTNode<Integer>(2);
+		tree.root.right = new BTNode<Integer>(3);
+		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.left.right = new BTNode<Integer>(10);
+		tree.root.left.right = new BTNode<Integer>(5);
+		tree.root.right.left = new BTNode<Integer>(6);
+		tree.root.right.right= new BTNode<Integer>(7);
+		Assert.assertTrue(tree.findInBTIterative(tree.root, 7));
+	}
+	
+	@Test
+	public void testSizeIterative()
+	{
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.root = new BTNode<Integer>(20);
+		tree.root.left = new BTNode<Integer>(2);
+		tree.root.right = new BTNode<Integer>(3);
+		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.left.right = new BTNode<Integer>(10);
+		tree.root.left.right = new BTNode<Integer>(5);
+		tree.root.right.left = new BTNode<Integer>(6);
+		tree.root.right.right= new BTNode<Integer>(7);
+		Assert.assertEquals(8,tree.sizeIterative(tree.root));
+	}
+
+	@Test
+	public void testSizeRecursive()
+	{
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.root = new BTNode<Integer>(20);
+		tree.root.left = new BTNode<Integer>(2);
+		tree.root.right = new BTNode<Integer>(3);
+		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.left.right = new BTNode<Integer>(10);
+		tree.root.left.right = new BTNode<Integer>(5);
+		tree.root.right.left = new BTNode<Integer>(6);
+		tree.root.right.right= new BTNode<Integer>(7);
+		Assert.assertEquals(8,tree.sizeRecursive(tree.root));
 	}
 }

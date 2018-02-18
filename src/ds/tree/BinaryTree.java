@@ -298,7 +298,7 @@ public class BinaryTree<E> {
 	        return res;
 	}
 
-	public Integer maxValueRecursive(BTNode<Integer> root) {
+	public Integer maxValueIterative(BTNode<Integer> root) {
 		if(root == null)
 		{
 			return Integer.MIN_VALUE;
@@ -324,6 +324,75 @@ public class BinaryTree<E> {
 			}
 		}
 		return max;
+	}
+
+	public boolean findInBTRecursive(BTNode<E> root, E data)   {
+		if(root == null)
+		{
+			return false;
+		}
+		if(root.data == data)
+		{
+			return true;
+		}
+		return findInBTRecursive(root.left, data) || findInBTRecursive(root.right, data);
+	}
+
+	public boolean findInBTIterative(BTNode<E> root2, E data) {
+		if(root == null)
+		{
+			return false;
+		}
+		Queue<BTNode<E>> q = new LinkedList<BTNode<E>>();
+		q.offer(root2);
+		while(!q.isEmpty())
+		{
+			BTNode<E> temp = q.poll();
+			if(temp.data  == data)
+			{
+				return true;
+			}
+			if(temp.left != null)
+			{
+				q.offer(temp.left);
+			}
+			if(temp.right != null)
+			{
+				q.offer(temp.right);
+			}
+		}
+		return false;
+	}
+
+	public int sizeRecursive(BTNode<E> root) {
+		int leftCount = root.left == null ? 0:sizeRecursive(root.left);
+		int rightCount = root.right == null ? 0:sizeRecursive(root.right);
+		return 1+leftCount+rightCount;
+	}
+
+	public int sizeIterative(BTNode<E> root) {
+		if(root == null)
+		{
+			return 0;
+		}
+		int count = 0;
+		Queue<BTNode<E>> q = new LinkedList<BTNode<E>>();
+		q.offer(root);
+		while(!q.isEmpty())
+		{
+			count++;
+			BTNode<E> temp = q.poll();
+			if(temp.left != null)
+			{
+				q.offer(temp.left);
+			}
+			if(temp.right != null)
+			{
+				q.offer(temp.right);
+			}
+
+		}
+		return count;
 	}
 	
 
