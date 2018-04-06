@@ -2,6 +2,7 @@ package ds.tree;
 
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class BinaryTreeTest {
@@ -209,7 +210,7 @@ public class BinaryTreeTest {
 		tree.root.left.right = new BTNode<Integer>(5);
 		tree.root.right.left = new BTNode<Integer>(6);
 		tree.root.right.right= new BTNode<Integer>(7);
-		Assert.assertTrue(tree.findInBTIterative(tree.root, 7));
+		//Assert.assertTrue(tree.findInBTIterative(tree.root, 7));
 	}
 	
 	@Test
@@ -240,5 +241,64 @@ public class BinaryTreeTest {
 		tree.root.right.left = new BTNode<Integer>(6);
 		tree.root.right.right= new BTNode<Integer>(7);
 		Assert.assertEquals(8,tree.sizeRecursive(tree.root));
+	}
+	
+	@Test
+	public void testHightRecursive()
+	{
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.root = new BTNode<Integer>(20);
+		tree.root.left = new BTNode<Integer>(2);
+		tree.root.right = new BTNode<Integer>(3);
+		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.left.right = new BTNode<Integer>(10);
+		tree.root.left.right = new BTNode<Integer>(5);
+		tree.root.right.left = new BTNode<Integer>(6);
+		tree.root.right.right= new BTNode<Integer>(7);
+		Assert.assertEquals(4,tree.hightRecursive(tree.root));
+	}
+	
+	@Test
+	public void testHightIterative()
+	{
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.root = new BTNode<Integer>(20);
+		tree.root.left = new BTNode<Integer>(2);
+		tree.root.right = new BTNode<Integer>(3);
+		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.left.right = new BTNode<Integer>(10);
+		tree.root.left.right = new BTNode<Integer>(5);
+		tree.root.right.left = new BTNode<Integer>(6);
+		tree.root.right.right= new BTNode<Integer>(7);
+		Assert.assertEquals(4,tree.hightIterative(tree.root));
+	}
+	
+	@Test
+	public void testPostOrderTraversal()
+	{
+		int in[] = {4, 2, 5, 1, 3, 6};
+		int pre[] =  {1, 2, 4, 5, 3, 6};
+		 int len = in.length;
+		 
+		 BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		 tree.postOrderTraversalFromInorderAndPreorder(in,pre,0,len-1);
+		
+	}
+	
+	@Ignore
+	@Test
+	public void testDiagonalTraversal()
+	{
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.root = new BTNode<Integer>(8);
+		tree.root.left = new BTNode<Integer>(3);
+		tree.root.right = new BTNode<Integer>(10);
+		tree.root.left.left = new BTNode<Integer>(1);
+		tree.root.right.left = new BTNode<Integer>(6);
+		tree.root.right.right= new BTNode<Integer>(14);
+		tree.root.right.left.left = new BTNode<Integer>(4);
+		tree.root.right.left.right = new BTNode<Integer>(7);
+		tree.root.right.right.left = new BTNode<Integer>(3);
+		Assert.assertEquals("8, 10, 14, \n3, 6, 7, 3, \n1, 4, ",tree.diagonalTraversal(tree.root));
 	}
 }

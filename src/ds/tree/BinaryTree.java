@@ -1,8 +1,10 @@
 package ds.tree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -10,6 +12,7 @@ public class BinaryTree<E> {
 
 	public BTNode<E> root;
 	private StringBuilder sb = new StringBuilder();
+	private int preIndex = 0;
 
 	public BinaryTree() {
 		super();
@@ -394,6 +397,98 @@ public class BinaryTree<E> {
 		}
 		return count;
 	}
+
+	public int hightRecursive(BTNode<E> root2) {
+		if(root2 == null)
+			return 0;
+		int leftDepth = hightRecursive(root2.left);
+		int rightDepth = hightRecursive(root2.right);
+		return (leftDepth > rightDepth)?leftDepth+1:rightDepth+1;
+	}
+
+	public int hightIterative(BTNode<E> root2) {
+		if(root2 == null)
+			return 0;
+		Queue<BTNode<E>> q = new LinkedList<BTNode<E>>();
+		q.offer(root2);
+		int hight = 0;
+		
+		while(1 == 1)
+		{
+			int nodecount = q.size();
+			if(nodecount == 0)
+				return hight;
+			hight++;
+			while(nodecount > 0)
+			{
+				BTNode<E> temp = q.poll();
+				if(temp.left != null)
+					q.offer(temp.left);
+				if(temp.right != null)
+					q.offer(temp.right);
+				nodecount--;
+			}
+		}
+	}
 	
+	
+	void postOrderTraversalFromInorderAndPreorder(int[]in, int[]pre,int inStrt,int inEnd){
+		if(inStrt > inEnd){
+			return ;
+		}     
+		 
+		int inIndex = search(in,inStrt,inEnd,pre[preIndex ++]);
+		// traverse left tree
+		postOrderTraversalFromInorderAndPreorder(in, pre, inStrt, inIndex - 1);
+		// traverse right tree
+		postOrderTraversalFromInorderAndPreorder(in, pre, inIndex + 1, inEnd);
+		
+		// print root node at the end of traversal
+	    System.out.print(in[inIndex]+" ");
+		
+	}
+	int search(int[]in,int startIn,int endIn,int data){
+		int i=0;
+		for(i=startIn;i<endIn;i++){
+			if(in[i]==data){
+				return i;
+			}
+		}
+		return i;
+	}
+
+	public String diagonalTraversal(BTNode<Integer> root) {
+		StringBuilder sb = new StringBuilder();
+		Map<Integer, List<Integer>> levelMap = new HashMap<Integer, List<Integer>>();
+		diagonalPrint(root,0,levelMap);
+		for (Map.Entry<Integer, List<Integer>> entry : levelMap.entrySet()) {
+			
+			for (Integer val : entry.getValue()) {
+				
+				sb.append(val).append(", ");
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
+	private void diagonalPrint(BTNode<Integer> root, int level,
+			Map<Integer, List<Integer>> levelMap) {
+		if(root == null)
+		{
+			return;
+		}
+		
+		List<Integer> list = levelMap.get(level);
+		if(list == null)
+		{
+			list = new ArrayList<Integer>();
+		}
+		list.add(root.data);
+		levelMap.put(level, list);
+		
+		diagonalPrint(root.left, level+1, levelMap);
+		diagonalPrint(root.right, level, levelMap);
+	}
 
 }
