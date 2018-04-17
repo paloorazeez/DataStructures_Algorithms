@@ -27,6 +27,10 @@ public class BTNode<E> {
 		this.data = data;
 		this.left = this.right = null;
 	}
+	public boolean isLeaf() {
+		// TODO Auto-generated method stub
+		return (this.left == null && this.right == null);
+	}
 	
 	
 }
