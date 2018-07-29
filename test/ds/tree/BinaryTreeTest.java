@@ -161,12 +161,12 @@ public class BinaryTreeTest {
 		tree.root = new BTNode<Integer>(20);
 		tree.root.left = new BTNode<Integer>(2);
 		tree.root.right = new BTNode<Integer>(3);
-		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.left = new BTNode<Integer>(40);
 		tree.root.left.left.right = new BTNode<Integer>(10);
 		tree.root.left.right = new BTNode<Integer>(5);
 		tree.root.right.left = new BTNode<Integer>(6);
 		tree.root.right.right = new BTNode<Integer>(7);
-		Assert.assertEquals(new Integer(20), tree.maxValue(tree.root));
+		Assert.assertEquals(new Integer(40), tree.maxValue(tree.root));
 	}
 
 	@Test
@@ -254,6 +254,20 @@ public class BinaryTreeTest {
 	}
 
 	@Test
+	public void testFindMinHeight()
+	{
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.root = new BTNode<Integer>(20);
+		tree.root.left = new BTNode<Integer>(2);
+		tree.root.right = new BTNode<Integer>(3);
+		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.left.right = new BTNode<Integer>(10);
+		tree.root.left.right = new BTNode<Integer>(5);
+		tree.root.right.left = new BTNode<Integer>(6);
+		tree.root.right.right = new BTNode<Integer>(7);
+		Assert.assertEquals(3, tree.findMinHeight(tree.root));
+	}
+	@Test
 	public void testHightIterative() {
 		BinaryTree<Integer> tree = new BinaryTree<Integer>();
 		tree.root = new BTNode<Integer>(20);
@@ -330,7 +344,7 @@ public class BinaryTreeTest {
 		root2.left.right = new BTNode<Integer>(4);
 		root2.right.left = new BTNode<Integer>(6);
 		root2.right.right = new BTNode<Integer>(7);
-		
+
 		Assert.assertTrue(tree.leafNodesAreSameOrNot(root1, root2));
 	}
 
@@ -352,78 +366,34 @@ public class BinaryTreeTest {
 		Assert.assertEquals("4 \n2 \n1 5 6 \n3 8 \n7 \n9 ",
 				tree.verticalOrderEfficient(tree.root));
 	}
-	
+
 	@Test
-	public void testBoundaryTraversal()
-	{
+	public void testBoundaryTraversal() {
 		BinaryTree tree = new BinaryTree();
-        tree.root = new BTNode<Integer>(20);
-        tree.root.left = new BTNode<Integer>(8);
-        tree.root.left.left = new BTNode<Integer>(4);
-        tree.root.left.right = new BTNode<Integer>(12);
-        tree.root.left.right.left = new BTNode<Integer>(10);
-        tree.root.left.right.right = new BTNode<Integer>(14);
-        tree.root.right = new BTNode<Integer>(22);
-        tree.root.right.right = new BTNode<Integer>(25);
-        Assert.assertEquals("20 8 4 10 14 25 22 ",tree.printBoundary(tree.root));
-	}
-	
-	@Test
-	public void testSpecificLevelOrderTraversalOnPerfectBT()
-	{
-		BinaryTree tree = new BinaryTree();
-        tree.root = new BTNode<Integer>(1);
-        tree.root.left = new BTNode<Integer>(2);
-        tree.root.right = new BTNode<Integer>(3);
-  
-        tree.root.left.left = new BTNode<Integer>(4);
-        tree.root.left.right = new BTNode<Integer>(5);
-        tree.root.right.left = new BTNode<Integer>(6);
-        tree.root.right.right = new BTNode<Integer>(7);
-  
-        tree.root.left.left.left = new BTNode<Integer>(8);
-        tree.root.left.left.right = new BTNode<Integer>(9);
-        tree.root.left.right.left = new BTNode<Integer>(10);
-        tree.root.left.right.right = new BTNode<Integer>(11);
-        tree.root.right.left.left = new BTNode<Integer>(12);
-        tree.root.right.left.right = new BTNode<Integer>(13);
-        tree.root.right.right.left = new BTNode<Integer>(14);
-        tree.root.right.right.right = new BTNode<Integer>(15);
-  
-        tree.root.left.left.left.left = new BTNode<Integer>(16);
-        tree.root.left.left.left.right = new BTNode<Integer>(17);
-        tree.root.left.left.right.left = new BTNode<Integer>(18);
-        tree.root.left.left.right.right = new BTNode<Integer>(19);
-        tree.root.left.right.left.left = new BTNode<Integer>(20);
-        tree.root.left.right.left.right = new BTNode<Integer>(21);
-        tree.root.left.right.right.left = new BTNode<Integer>(22);
-        tree.root.left.right.right.right = new BTNode<Integer>(23);
-        tree.root.right.left.left.left = new BTNode<Integer>(24);
-        tree.root.right.left.left.right = new BTNode<Integer>(25);
-        tree.root.right.left.right.left = new BTNode<Integer>(26);
-        tree.root.right.left.right.right = new BTNode<Integer>(27);
-        tree.root.right.right.left.left = new BTNode<Integer>(28);
-        tree.root.right.right.left.right = new BTNode<Integer>(29);
-        tree.root.right.right.right.left = new BTNode<Integer>(30);
-        tree.root.right.right.right.right = new BTNode<Integer>(31);
-  
-        Assert.assertEquals("1 2 3 4 7 5 6 8 15 9 14 10 13 11 12 16 31 17 30 18 29 19 28 20 27 21 26 22 25 23 24 ",
-        		tree.printSpecificLevelOrder(tree.root));
+		tree.root = new BTNode<Integer>(20);
+		tree.root.left = new BTNode<Integer>(8);
+		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.right = new BTNode<Integer>(12);
+		tree.root.left.right.left = new BTNode<Integer>(10);
+		tree.root.left.right.right = new BTNode<Integer>(14);
+		tree.root.right = new BTNode<Integer>(22);
+		tree.root.right.right = new BTNode<Integer>(25);
+		Assert.assertEquals("20 8 4 10 14 25 22 ",
+				tree.printBoundary(tree.root));
 	}
 
 	@Test
-	public void testSpecificLevelOrderTraversalOnPerfectBT2()
-	{
+	public void testSpecificLevelOrderTraversalOnPerfectBT() {
 		BinaryTree tree = new BinaryTree();
 		tree.root = new BTNode<Integer>(1);
 		tree.root.left = new BTNode<Integer>(2);
 		tree.root.right = new BTNode<Integer>(3);
-		
+
 		tree.root.left.left = new BTNode<Integer>(4);
 		tree.root.left.right = new BTNode<Integer>(5);
 		tree.root.right.left = new BTNode<Integer>(6);
 		tree.root.right.right = new BTNode<Integer>(7);
-		
+
 		tree.root.left.left.left = new BTNode<Integer>(8);
 		tree.root.left.left.right = new BTNode<Integer>(9);
 		tree.root.left.right.left = new BTNode<Integer>(10);
@@ -432,7 +402,7 @@ public class BinaryTreeTest {
 		tree.root.right.left.right = new BTNode<Integer>(13);
 		tree.root.right.right.left = new BTNode<Integer>(14);
 		tree.root.right.right.right = new BTNode<Integer>(15);
-		
+
 		tree.root.left.left.left.left = new BTNode<Integer>(16);
 		tree.root.left.left.left.right = new BTNode<Integer>(17);
 		tree.root.left.left.right.left = new BTNode<Integer>(18);
@@ -449,34 +419,77 @@ public class BinaryTreeTest {
 		tree.root.right.right.left.right = new BTNode<Integer>(29);
 		tree.root.right.right.right.left = new BTNode<Integer>(30);
 		tree.root.right.right.right.right = new BTNode<Integer>(31);
-		
-		Assert.assertEquals("16 31 17 30 18 29 19 28 20 27 21 26 22 25 23 24 8 15 9 14 10 13 11 12 4 7 5 6 2 3 1 ",
+
+		Assert.assertEquals(
+				"1 2 3 4 7 5 6 8 15 9 14 10 13 11 12 16 31 17 30 18 29 19 28 20 27 21 26 22 25 23 24 ",
+				tree.printSpecificLevelOrder(tree.root));
+	}
+
+	@Test
+	public void testSpecificLevelOrderTraversalOnPerfectBT2() {
+		BinaryTree tree = new BinaryTree();
+		tree.root = new BTNode<Integer>(1);
+		tree.root.left = new BTNode<Integer>(2);
+		tree.root.right = new BTNode<Integer>(3);
+
+		tree.root.left.left = new BTNode<Integer>(4);
+		tree.root.left.right = new BTNode<Integer>(5);
+		tree.root.right.left = new BTNode<Integer>(6);
+		tree.root.right.right = new BTNode<Integer>(7);
+
+		tree.root.left.left.left = new BTNode<Integer>(8);
+		tree.root.left.left.right = new BTNode<Integer>(9);
+		tree.root.left.right.left = new BTNode<Integer>(10);
+		tree.root.left.right.right = new BTNode<Integer>(11);
+		tree.root.right.left.left = new BTNode<Integer>(12);
+		tree.root.right.left.right = new BTNode<Integer>(13);
+		tree.root.right.right.left = new BTNode<Integer>(14);
+		tree.root.right.right.right = new BTNode<Integer>(15);
+
+		tree.root.left.left.left.left = new BTNode<Integer>(16);
+		tree.root.left.left.left.right = new BTNode<Integer>(17);
+		tree.root.left.left.right.left = new BTNode<Integer>(18);
+		tree.root.left.left.right.right = new BTNode<Integer>(19);
+		tree.root.left.right.left.left = new BTNode<Integer>(20);
+		tree.root.left.right.left.right = new BTNode<Integer>(21);
+		tree.root.left.right.right.left = new BTNode<Integer>(22);
+		tree.root.left.right.right.right = new BTNode<Integer>(23);
+		tree.root.right.left.left.left = new BTNode<Integer>(24);
+		tree.root.right.left.left.right = new BTNode<Integer>(25);
+		tree.root.right.left.right.left = new BTNode<Integer>(26);
+		tree.root.right.left.right.right = new BTNode<Integer>(27);
+		tree.root.right.right.left.left = new BTNode<Integer>(28);
+		tree.root.right.right.left.right = new BTNode<Integer>(29);
+		tree.root.right.right.right.left = new BTNode<Integer>(30);
+		tree.root.right.right.right.right = new BTNode<Integer>(31);
+
+		Assert.assertEquals(
+				"16 31 17 30 18 29 19 28 20 27 21 26 22 25 23 24 8 15 9 14 10 13 11 12 4 7 5 6 2 3 1 ",
 				tree.printSpecificLevelOrder2(tree.root));
 	}
-	
+
 	@Test
-	public void testBuildTreeFromInorderAndLevelOrder()
-	{
-        BinaryTree tree = new BinaryTree();
-        int in[] = new int[]{4, 8, 10, 12, 14, 20, 22};
-        int level[] = new int[]{20, 8, 22, 4, 12, 10, 14};
-        int n = in.length;
-        BTNode node = tree.buildTreeFromInorderAndLevelOrder(in, level);
-  
-        /* Let us test the built tree by printing Inorder traversal */
-        Assert.assertEquals("4 8 10 12 14 20 22 ", tree.inOrderTraversal(node));
+	public void testBuildTreeFromInorderAndLevelOrder() {
+		BinaryTree tree = new BinaryTree();
+		int in[] = new int[] { 4, 8, 10, 12, 14, 20, 22 };
+		int level[] = new int[] { 20, 8, 22, 4, 12, 10, 14 };
+		int n = in.length;
+		BTNode node = tree.buildTreeFromInorderAndLevelOrder(in, level);
+
+		/* Let us test the built tree by printing Inorder traversal */
+		Assert.assertEquals("4 8 10 12 14 20 22 ", tree.inOrderTraversal(node));
 
 	}
-	
+
 	@Test
-	public void testBuildTreeFromLinkedList()
-	{
+	public void testBuildTreeFromLinkedList() {
 		BinaryTree<Integer> tree = new BinaryTree();
-		AzLinkedList<Integer> ll = createList(new int[]{10,12,15,25,30,36});
+		AzLinkedList<Integer> ll = createList(new int[] { 10, 12, 15, 25, 30,
+				36 });
 		BTNode<Integer> root = tree.buildTreeFromLinkedList(ll.getHead());
 		Assert.assertEquals("25 12 30 10 36 15 ", tree.inOrderTraversal(root));
 	}
-	
+
 	private AzLinkedList<Integer> createList(int[] arr) {
 		AzLinkedList<Integer> list1 = new AzLinkedList<>();
 		for (int i = 0; i < arr.length; i++) {
@@ -484,21 +497,238 @@ public class BinaryTreeTest {
 		}
 		return list1;
 	}
+
+	@Test
+	public void testBuildTreeFromPreOrderSpecial() {
+		BinaryTree tree = new BinaryTree();
+		int pre[] = new int[] { 10, 30, 20, 5, 15 };
+		char preLN[] = new char[] { 'N', 'N', 'L', 'L', 'L' };
+		int n = pre.length;
+
+		// construct the above tree
+		BTNode mynode = tree.buildTreeFromPreOrderSpecial(pre, preLN, n,
+				tree.root);
+
+		// Test the constructed tree
+		Assert.assertEquals("20 30 5 10 15 ", tree.inOrderTraversal(mynode));
+
+	}
+
+	@Test
+	public void testCreateTreeFromParentRepresentationArray() {
+		BinaryTree tree = new BinaryTree();
+		int parent[] = new int[] { -1, 0, 0, 1, 1, 3, 5 };
+		BTNode root = tree.createTreeFromParentRepresentationArray(parent);
+		Assert.assertEquals("6 5 3 1 4 0 2 ", tree.inOrderTraversal(root));
+	}
+
+	@Test
+	public void testBuildTreeFromPostAndInorder() {
+		BinaryTree tree = new BinaryTree();
+		int[] inorder = new int[] { 4, 8, 2, 5, 1, 6, 3, 7 };
+		int[] postOrder = new int[] { 8, 4, 5, 2, 6, 7, 3, 1 };
+		BTNode root = tree.buildTreeFromPostAndInorder(inorder, postOrder);
+		Assert.assertEquals("4 8 2 5 1 6 3 7 ", tree.inOrderTraversal(root));
+	}
+
+	@Test
+	public void testBinarytree2list() {
+		BinaryTree tree = new BinaryTree();
+
+		// Let us create the tree shown in above diagram
+		tree.root = new BTNode(10);
+		tree.root.left = new BTNode(12);
+		tree.root.right = new BTNode(15);
+		tree.root.left.left = new BTNode(25);
+		tree.root.left.right = new BTNode(30);
+		tree.root.right.left = new BTNode(36);
+
+		// Convert to DLL
+		BTNode head = tree.bintree2list(tree.root);
+
+		// Print the converted list
+		tree.printList(head);
+
+	}
+
+	@Test
+	public void testBinaryTree2List2() {
+		BinaryTree tree = new BinaryTree();
+		BTNode root = new BTNode(10);
+		root.left = new BTNode(12);
+		root.right = new BTNode(15);
+		root.left.left = new BTNode(25);
+		root.left.right = new BTNode(30);
+		root.right.left = new BTNode(36);
+		BTNode head = tree.binaryTree2List2(root);
+		tree.printList(head);
+	}
+
+	@Test
+	public void testBinaryTree2List3() {
+		BinaryTree tree = new BinaryTree();
+		BTNode root = new BTNode(10);
+		root.left = new BTNode(12);
+		root.right = new BTNode(15);
+		root.left.left = new BTNode(25);
+		root.left.right = new BTNode(30);
+		root.right.left = new BTNode(36);
+		BTNode head = tree.binaryTree2List3(root);
+		tree.printList(head);
+	}
+
+	@Test
+	public void testBinaryTree2List4() {
+		BinaryTree tree = new BinaryTree();
+		BTNode root = new BTNode(10);
+		root.left = new BTNode(12);
+		root.right = new BTNode(15);
+		root.left.left = new BTNode(25);
+		root.left.right = new BTNode(30);
+		root.right.left = new BTNode(36);
+		BTNode head = tree.binaryTree2List4(root);
+		tree.printList(tree.head);
+	}
+
+	@Test
+	public void testCalculateChildrenSum() {
+		BinaryTree tree = new BinaryTree();
+		tree.root = new BTNode(50);
+		tree.root.left = new BTNode(7);
+		tree.root.right = new BTNode(2);
+		tree.root.left.left = new BTNode(3);
+		tree.root.left.right = new BTNode(5);
+		tree.root.right.left = new BTNode(1);
+		tree.root.right.right = new BTNode(30);
+		tree.calculateChildrenSum(tree.root);
+		Assert.assertEquals("14 19 5 50 1 31 30 ",
+				tree.inOrderTraversal(tree.root));
+	}
+
+	@Test
+	public void testConvertTreeToThreadedBT() {
+		BinaryTree tree = new BinaryTree();
+		tree.root = new BTNode(6);
+		tree.root.left = new BTNode(3);
+		tree.root.right = new BTNode(8);
+		tree.root.left.left = new BTNode(1);
+		tree.root.left.right = new BTNode(5);
+		tree.root.right.left = new BTNode(7);
+		tree.root.right.right = new BTNode(11);
+		tree.root.left.left.right = new BTNode(2);
+		tree.root.right.right.left = new BTNode(9);
+		tree.root.right.right.right = new BTNode(13);
+		tree.convertTreeToThreadedBT(tree.root);
+	}
+
+	@Test
+	public void testToSumTree() {
+		BinaryTree tree = new BinaryTree();
+
+		/* Constructing tree given in the above figure */
+		tree.root = new BTNode(10);
+		tree.root.left = new BTNode(-2);
+		tree.root.right = new BTNode(6);
+		tree.root.left.left = new BTNode(8);
+		tree.root.left.right = new BTNode(-4);
+		tree.root.right.left = new BTNode(7);
+		tree.root.right.right = new BTNode(5);
+
+		tree.toSumTree(tree.root);
+		Assert.assertEquals("0 4 0 20 0 12 0 ",
+				tree.inOrderTraversal(tree.root));
+	}
+
+	@Test
+	public void testToLeftSumTree() {
+		BinaryTree tree = new BinaryTree();
+
+		/* Constructing tree given in the above figure */
+		tree.root = new BTNode(1);
+		tree.root.left = new BTNode(2);
+		tree.root.right = new BTNode(3);
+		tree.root.left.left = new BTNode(4);
+		tree.root.left.right = new BTNode(5);
+		tree.root.right.right = new BTNode(6);
+
+		tree.toLeftSumTree(tree.root);
+		Assert.assertEquals("4 6 5 12 3 6 ", tree.inOrderTraversal(tree.root));
+	}
+
+	@Test
+	public void testMirrorTree() {
+		BinaryTree tree = new BinaryTree();
+		tree.root = new BTNode(1);
+		tree.root.left = new BTNode(2);
+		tree.root.right = new BTNode(3);
+		tree.root.left.left = new BTNode(4);
+		tree.root.left.right = new BTNode(5);
+		tree.mirrorTree(tree.root);
+		Assert.assertEquals("3 1 5 2 4 ", tree.inOrderTraversal(tree.root));
+	}
+
+	@Test
+	public void testBstToBalancedBst() {
+		BinaryTree tree = new BinaryTree();
+		tree.root = new BTNode(10);
+		tree.root.left = new BTNode(8);
+		tree.root.left.left = new BTNode(7);
+		tree.root.left.left.left = new BTNode(6);
+		tree.root.left.left.left.left = new BTNode(5);
+
+		tree.root = tree.bstToBalancedBst(tree.root);
+		Assert.assertEquals("7 5 6 8 10 ", tree.preOrderTraversal(tree.root));
+	}
 	
 	@Test
-	public void testBuildTreeFromPreOrderSpecial()
+	public void testDiameter()
 	{
 		BinaryTree tree = new BinaryTree();
-        int pre[] = new int[]{10, 30, 20, 5, 15};
-        char preLN[] = new char[]{'N', 'N', 'L', 'L', 'L'};
-        int n = pre.length;
-  
-        // construct the above tree
-        BTNode mynode = tree.buildTreeFromPreOrderSpecial(pre, preLN, n, tree.root);
-  
-        // Test the constructed tree
-        Assert.assertEquals("20 30 5 10 15 ", tree.inOrderTraversal(mynode));
-
-		
+		tree.root = new BTNode(6);
+		tree.root.left = new BTNode(3);
+		tree.root.right = new BTNode(8);
+		tree.root.left.left = new BTNode(1);
+		tree.root.left.right = new BTNode(5);
+		tree.root.right.left = new BTNode(7);
+		tree.root.right.right = new BTNode(11);
+		tree.root.left.left.right = new BTNode(2);
+		tree.root.right.right.left = new BTNode(9);
+		tree.root.right.right.right = new BTNode(13);
+		Assert.assertEquals(7, tree.diameter());
+	}
+	
+	@Test
+	public void testMaxWidth()
+	{
+		BinaryTree tree = new BinaryTree();
+		tree.root = new BTNode(6);
+		tree.root.left = new BTNode(3);
+		tree.root.right = new BTNode(8);
+		tree.root.left.left = new BTNode(1);
+		tree.root.left.right = new BTNode(5);
+		tree.root.right.left = new BTNode(7);
+		tree.root.right.right = new BTNode(11);
+		tree.root.left.left.right = new BTNode(2);
+		tree.root.right.right.left = new BTNode(9);
+		tree.root.right.right.right = new BTNode(13);
+		Assert.assertEquals(4, tree.maxWidth());
+	}
+	
+	
+	@Test
+	public void testFindLevelMaxSum()
+	{
+		BinaryTree tree = new BinaryTree();
+		tree.root = new BTNode(6);
+		tree.root.left = new BTNode(3);
+		tree.root.right = new BTNode(8);
+		tree.root.left.left = new BTNode(1);
+		tree.root.left.right = new BTNode(5);
+		tree.root.right.left = new BTNode(7);
+		tree.root.right.right = new BTNode(11);
+		tree.root.left.left.right = new BTNode(2);
+		tree.root.right.right.left = new BTNode(9);
+		tree.root.right.right.right = new BTNode(13);
+		Assert.assertEquals(4, tree.findLevelMaxSum());
 	}
 }

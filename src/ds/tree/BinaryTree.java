@@ -789,4 +789,457 @@ public class BinaryTree<E> {
 	    int index = 0;
 	}
 	 Index myIndex = new Index();
+	private BTNode prev;
+	BTNode head;
+
+	public BTNode createTreeFromParentRepresentationArray(int[] parent) {
+		BTNode[] created = new BTNode[parent.length];
+		for(int i=0;i<parent.length;i++)
+		{
+			created[i] = null;
+		}
+		
+		for(int i = 0;i<parent.length;i++)
+			createFromParentRepArrayUtil(parent, i ,created);
+		return root;
+	}
+
+	private void createFromParentRepArrayUtil(int[] parent, int i,
+			BTNode[] created) {
+
+		if(created[i] != null)
+		{
+			return;
+		}
+		
+		created[i] = new BTNode(i);
+		
+		if(parent[i] == -1)
+		{
+			root = created[i];
+			return;
+		}
+		
+		//create parent if not there
+		if(created[parent[i]] == null)
+		{
+			createFromParentRepArrayUtil(parent, parent[i], created);
+		}
+		
+		//search parent
+		BTNode p = created[parent[i]];
+		
+		if(p.left == null)
+		{
+			p.left=created[i];
+		}
+		else{
+			p.right = created[i];
+		}
+	}
+
+	public BTNode buildTreeFromPostAndInorder(int[] inorder, int[] postOrder) {
+		preIndex = inorder.length-1;
+		return buildTreeFromPostAndInorderUtil(inorder, postOrder,0,inorder.length-1);
+	}
+
+	private BTNode buildTreeFromPostAndInorderUtil(int[] inorder,
+			int[] postOrder, int start, int end) {
+
+		if(start > end)
+		{
+			return null;
+		}
+		
+		BTNode<Integer> node = new BTNode(postOrder[preIndex]);
+		preIndex--;
+		
+		if(start == end)
+		{
+			return node;
+		}
+		int index= search(inorder, start, end, node.data);
+		node.right = buildTreeFromPostAndInorderUtil(inorder, postOrder, index+1, end);
+		node.left = buildTreeFromPostAndInorderUtil(inorder, postOrder, start, index-1);
+		return node;
+	}
+
+	public BTNode bintree2list(BTNode node) {
+		 if (node == null)
+	            return node;
+	  
+	        // Convert to DLL using bintree2listUtil()
+	        node = bintree2listUtil(node);
+	  
+	        // bintree2listUtil() returns root node of the converted
+	        // DLL.  We need pointer to the leftmost node which is
+	        // head of the constructed DLL, so move to the leftmost node
+	        while (node.left != null)
+	            node = node.left;
+	  
+	        return node;
+	}
+
+	private BTNode bintree2listUtil(BTNode node) {
+		// Base case
+        if (node == null)
+            return node;
+  
+        // Convert the left subtree and link to root
+        if (node.left != null) 
+        {
+            // Convert the left subtree
+            BTNode left = bintree2listUtil(node.left);
+  
+            // Find inorder predecessor. After this loop, left
+            // will point to the inorder predecessor
+            for (; left.right != null; left = left.right);
+  
+            // Make root as next of the predecessor
+            left.right = node;
+  
+            // Make predecssor as previous of root
+            node.left = left;
+        }
+  
+        // Convert the right subtree and link to root
+        if (node.right != null) 
+        {
+            // Convert the right subtree
+            BTNode right = bintree2listUtil(node.right);
+  
+            // Find inorder successor. After this loop, right
+            // will point to the inorder successor
+            for (; right.left != null; right = right.left);
+  
+            // Make root as previous of successor
+            right.left = node;
+  
+            // Make successor as next of root
+            node.right = right;
+        }
+  
+        return node;
+	}
+	
+	void printList(BTNode node) 
+    {
+        while (node != null) 
+        {
+            System.out.print(node.data + " ");
+            node = node.right;
+        }
+        System.out.println();
+    }
+
+	public BTNode binaryTree2List2(BTNode root) {
+		prev = null;
+		fixPreviousLink(root);
+		return fixNextLink(root);
+	}
+
+	private BTNode fixNextLink(BTNode root) {
+
+		while(root.right != null)
+			root = root.right;
+		
+		while(root != null && root.left != null)
+		{
+			BTNode left = root.left;
+			left.right = root;
+			root = root.left;
+		}
+		return null;
+	}
+
+	private void fixPreviousLink(BTNode root) {
+
+		if(root == null)
+		{
+			return;
+		}
+		
+		fixPreviousLink(root.left);
+		root.left = prev;
+		prev = root;
+		fixPreviousLink(root.right);
+	}
+
+	public BTNode binaryTree2List3(BTNode root) {
+
+		if(root == null)
+			return null;
+		binaryTree2List3(root.left);
+		if(prev == null)
+		{
+			head = root;
+		}
+		else{
+			root.left = prev;
+			prev.right = root;
+		}
+		
+		prev = root;
+		binaryTree2List3(root.right);
+		return head;
+	}
+
+	public BTNode binaryTree2List4(BTNode root) {
+
+		if(root == null)
+			return null;
+		
+		binaryTree2List4(root.right);
+		root.right = head;
+		if(head != null)
+		{
+			head.left = root;
+		}
+		
+		head = root;
+		
+		binaryTree2List4(root.left);
+		return root;
+	}
+
+	public void calculateChildrenSum(BTNode<Integer> root) {
+
+		int leftVal =0, rightVal=0, diff = 0;
+		if(root == null || (root.left == null && root.right == null))
+			return;
+		calculateChildrenSum(root.left);
+		calculateChildrenSum(root.right);
+		
+		if(root.left != null)
+			leftVal = root.left.data;
+		if(root.right != null)
+			rightVal = root.right.data;
+		diff = leftVal+rightVal - root.data;
+		if(diff > 0)
+		{
+			root.data = root.data+diff;
+		}
+		if(diff < 0)
+		{
+			increment(root, -diff);
+		}
+	}
+
+	private void increment(BTNode<Integer> root, int diff) {
+
+		if(root.left != null)
+		{
+			root.left.data = root.left.data + diff;
+			increment(root.left, diff);
+		}
+		else if(root.right != null)
+		{
+			root.right.data = root.right.data + diff;
+			increment(root.right, diff);
+		}
+	}
+
+	public void convertTreeToThreadedBT(BTNode root) {
+
+		BTNode current = root;
+		while(current != null)
+		{
+			
+			if(current.left == null)
+			{
+				current = current.right;
+			}
+			else{
+				BTNode pre = current.left;
+				while(pre != null && pre.right != current && pre.right != null)
+					pre = pre.right;
+				if(pre.right == null)
+				{
+					pre.right = current;
+					current = current.left;
+				}
+				else
+				{
+					current = current.right;
+				}
+			}
+		}
+		
+	}
+
+	public int toSumTree(BTNode<Integer> root) {
+
+		if(root == null)
+			return 0;
+		int oldValue = root.data;
+		root.data = toSumTree(root.left) + toSumTree(root.right);
+		return root.data+oldValue;
+	}
+
+	public int toLeftSumTree(BTNode<Integer> root) {
+		if(root == null)
+			return 0;
+		if(root.left == null && root.right == null)
+		{
+			return root.data;
+		}
+		int leftSum =toLeftSumTree(root.left);
+		int rightSum =toLeftSumTree(root.right);
+		root.data += leftSum;
+		return root.data+rightSum;
+	}
+
+	public BTNode mirrorTree(BTNode node) {
+
+		if(node == null)
+			return node;
+		BTNode left = mirrorTree(node.left);
+		BTNode right = mirrorTree(node.right);
+		node.left = right;
+		node.right = left;
+		return node;
+	}
+
+	public BTNode bstToBalancedBst(BTNode root) {
+
+		//put nodes into sorted array
+		List<BTNode> nodes = new ArrayList<BTNode>();
+		storeNodes(nodes, root);
+		return bstToBalancedBstUtil(nodes,0,nodes.size()-1);
+	}
+
+	private BTNode bstToBalancedBstUtil(List<BTNode> nodes, int start, int end) {
+		if(start > end)
+		{
+			return null;
+		}
+		//find mid
+		int mid = (start+end)/2;
+		BTNode node = nodes.get(mid);
+		node.left = bstToBalancedBstUtil(nodes, start, mid-1);
+		node.right = bstToBalancedBstUtil(nodes, mid+1, end);
+		return node;
+	}
+
+	private void storeNodes(List<BTNode> nodes, BTNode root) {
+
+		if(root == null)
+			return;
+		storeNodes(nodes, root.left);
+		nodes.add(root);
+		storeNodes(nodes, root.right);
+	}
+
+	public int findMinHeight(BTNode<E> root2) {
+		if(root2 == null)
+			return 0;
+		Queue<BTNode<E>> q = new LinkedList<BTNode<E>>();
+		q.offer(root2);
+		q.offer(null);
+		int count = 1;
+		while(!q.isEmpty())
+		{
+			BTNode<E> cur = q.poll();
+			if(cur != null)
+			{
+				if(cur.left == null && cur.right == null)
+				{
+					return count;
+				}
+				if(cur.left != null)
+					q.offer(cur.left);
+				if(cur.right != null)
+					q.offer(cur.right);
+				
+			}
+			else{
+				if (!q.isEmpty()) {
+					q.offer(null);
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+
+	public int diameter() {
+		Height height = new Height();
+		return diamterOpt(this.root,height);
+	}
+	
+	private int diamterOpt(BTNode<E> root, Height height) {
+		Height lh = new Height(),rh =new Height();
+		if(root == null)
+		{
+			height.h =0;
+			return 0;
+		}
+		
+		int lDiameter = diamterOpt(root.left, lh);
+		int rDiameter = diamterOpt(root.right, rh);
+		height.h = Math.max(lh.h, rh.h)+1;
+		return Math.max(lh.h+rh.h+1, Math.max(lDiameter, rDiameter));
+	}
+
+	class Height{
+		int h =0;
+	}
+
+	public int maxWidth() {
+		if(this.root == null)
+			return 0;
+		int maxWidth = 0;
+		Queue<BTNode<E>> q = new LinkedList<BTNode<E>>();
+		q.offer(this.root);
+		while(!q.isEmpty())
+		{
+			int count = q.size();
+			maxWidth = Math.max(count, maxWidth);
+			while(count-- > 0)
+			{
+				BTNode<E> temp = q.poll();
+				if(temp.left != null)
+				{
+					q.offer(temp.left);
+				}
+				if(temp.right != null)
+				{
+					q.offer(temp.right);
+				}
+			}
+					
+		}
+		return maxWidth;
+	}
+
+	public int findLevelMaxSum() {
+		Map<Integer, Integer> levelBySum = new HashMap<>();
+		int maxSum = 0;
+		Queue<BTNode<Integer>> q = new LinkedList<BTNode<Integer>>();
+		q.offer((BTNode<Integer>) this.root);
+		int level = 0;
+		while(!q.isEmpty())
+		{
+			level++;
+			int nodeCount = q.size();
+			int levelSum = 0;
+			while(nodeCount-- >0)
+			{
+				BTNode<Integer> tmp = q.poll();
+				levelSum+= tmp.data;
+				if(tmp.left != null)
+				{
+					q.offer(tmp.left);
+				}
+				if(tmp.right != null)
+				{
+					q.offer(tmp.right);
+				}
+			}
+			maxSum = Math.max(levelSum, maxSum);
+			levelBySum.put(levelSum, level);
+					
+		}
+		return levelBySum.get(maxSum);
+	}
 }
