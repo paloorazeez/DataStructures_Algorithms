@@ -85,7 +85,7 @@ public class LinkedQueueTest {
 		queue.enqueue(9);
 		queue.enqueue(10);
 		queue.interleavingSwap();
-		Assert.assertEquals("1 6 2 7 3 8 4 9 5 10 ", queue.print());
+		Assert.assertEquals("6 7 8 9 10  ", queue.print());
 	}
 
 }
