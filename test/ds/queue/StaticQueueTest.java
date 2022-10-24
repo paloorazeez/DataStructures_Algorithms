@@ -49,7 +49,7 @@ public class StaticQueueTest {
 		queue.enqueue(60);
 		queue.enqueue(70);
 		queue.enqueue(80);
-		Assert.assertEquals("40 50 60 70 80", queue.print());
+		Assert.assertEquals("60 70 80 40 50 ", queue.print());
 		
 	}
 
